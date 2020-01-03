@@ -35,14 +35,7 @@ describe('Hero manipulation suite', () => {
         deepEqual(current, expected)
     })
 
-    it('must remove a hero by id', async () => {
-        const expected = true
-        const result = await database.remove(DEFAULT_HERO_REGISTER.id)
-
-        deepEqual(result, expected)
-    })
-
-    it('must update a hero by id', async () => {
+    it('must modify a hero by id', async () => {
         const expected = {
             ...DEFAULT_HERO_UPDATE,
             name: 'Batman',
@@ -57,6 +50,13 @@ describe('Hero manipulation suite', () => {
         await database.modify(DEFAULT_HERO_UPDATE.id, newData)
         
         const [result] = await database.toList(DEFAULT_HERO_UPDATE.id)
+
+        deepEqual(result, expected)
+    })
+
+    it('must remove a hero by id', async () => {
+        const expected = true
+        const result = await database.remove(DEFAULT_HERO_REGISTER.id)
 
         deepEqual(result, expected)
     })

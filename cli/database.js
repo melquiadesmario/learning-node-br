@@ -44,6 +44,28 @@ class Database{
         return filteredData
     }
 
+    async modify(id, modifications){
+        const data = await this.getFileData()
+        const index = data.findIndex(hero => hero.id === parseInt(id))
+
+        if(index === -1){
+            throw Error('Reporting hero does not exist')
+        }
+
+        const current = data[index]
+        const currentObject = {
+            ...current,
+            ...modifications
+        }
+
+        data.splice(index, 1)
+
+        return await this.myWriteFile([
+            ...data,
+            currentObject
+        ])
+    }
+
     async remove(id){
         if(!id){
             return await this.myWriteFile([])

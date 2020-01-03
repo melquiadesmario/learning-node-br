@@ -27,4 +27,11 @@ describe('Hero manipulation suite', () => {
 
         deepEqual(current, expected)
     })
+
+    it('must remove a hero by id', async () => {
+        const expected = true
+        const result = await database.remove(DEFAULT_HERO_REGISTER.id)
+
+        deepEqual(result, expected)
+    })
 })

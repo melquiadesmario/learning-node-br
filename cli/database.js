@@ -43,6 +43,23 @@ class Database{
         const filteredData = data.filter(hero => (id ? (hero.id === id): true))
         return filteredData
     }
+
+    async remove(id){
+        if(!id){
+            return await this.myWriteFile([])
+        }
+
+        const data = await this.getFileData()
+        const index = data.findIndex(hero => hero.id === parseInt(id))
+
+        if(index === -1){
+            throw Error('Reporting hero does not exist')
+        }
+
+        data.splice(index, 1)
+
+        return await this.myWriteFile(data)
+    }
 }
 
 module.exports = new Database()
